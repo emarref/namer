@@ -1,0 +1,22 @@
+{
+    "name": "emarref/namer",
+    "description": "A simple library for determining whether or not a given name is available for use, and generating a new name based on a strategy if it is not.",
+    "keywords": ["namer", "naming"],
+    "homepage": "https://github.com/emarref/namer",
+    "licence": "MIT",
+    "authors": [
+        {
+            "name": "Malcolm Fell",
+            "email": "emarref@gmail.com",
+            "homepage": "http://emarref.net"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "~3.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Emarref\\Namer\\": "lib/Namer"
+        }
+    }
+}
