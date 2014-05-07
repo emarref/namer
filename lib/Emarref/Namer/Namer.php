@@ -25,9 +25,9 @@ class Namer
     private $limit;
 
     /**
-     * @param StrategyInterface $strategy
-     * @param DetectorInterface $detector
-     * @param int               $limit
+     * @param StrategyInterface      $strategy
+     * @param DetectorInterface|null $detector
+     * @param int                    $limit
      */
     public function __construct(
         StrategyInterface $strategy,
@@ -64,8 +64,8 @@ class Namer
      * generate a new name, then use the detector to determine if that name is available to be used. Continue until
      * either an available name has been found, or the limit has been reached.
      *
-     * @param string                     $name
-     * @param Detector\DetectorInterface $detector
+     * @param string                          $name
+     * @param Detector\DetectorInterface|null $detector
      * @throws \RuntimeException
      * @return string
      */
