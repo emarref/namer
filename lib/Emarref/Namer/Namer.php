@@ -71,9 +71,9 @@ class Namer
      */
     public function getName($name, DetectorInterface $detector = null)
     {
-        if (!$detector && !$this->detector) {
+        if (!$this->detector && !($detector instanceof DetectorInterface)) {
             throw new \RuntimeException('No detector is configured for this namer.');
-        } elseif (!$detector && $this->detector) {
+        } elseif ($this->detector && !($detector instanceof DetectorInterface)) {
             $detector = $this->detector;
         }
 
