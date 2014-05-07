@@ -15,8 +15,8 @@
         "phpunit/phpunit": "~3.7"
     },
     "autoload": {
-        "psr-4": {
-            "Emarref\\Namer\\": "lib/Namer"
+        "psr-0": {
+            "Emarref\\Namer": "lib"
         }
     }
 }
