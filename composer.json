@@ -3,7 +3,7 @@
     "description": "A simple library for determining whether or not a given name is available for use, and generating a new name based on a strategy if it is not.",
     "keywords": ["namer", "naming"],
     "homepage": "https://github.com/emarref/namer",
-    "licence": "MIT",
+    "license": "MIT",
     "authors": [
         {
             "name": "Malcolm Fell",
