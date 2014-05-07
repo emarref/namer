@@ -23,8 +23,8 @@ class ArrayDetectorTest extends \PHPUnit_Framework_TestCase
 
     public function testIsAvailable()
     {
-        $this->assertTrue($this->detector->isAvailable('Test', 0), 'Available names return true');
-        $this->assertFalse($this->detector->isAvailable('Apple', 0), 'Unavailable names return false');
+        $this->assertTrue($this->detector->isAvailable('Test'), 'Available names return true');
+        $this->assertFalse($this->detector->isAvailable('Apple'), 'Unavailable names return false');
     }
 
     public function tearDown()
