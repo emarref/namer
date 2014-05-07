@@ -101,6 +101,50 @@ class NamerTest extends \PHPUnit_Framework_TestCase
         $namer->getName('Namer');
     }
 
+    public function testDynamicDetector()
+    {
+        $name = 'Namer';
+
+        $strategy = $this->getMockStrategy();
+
+        $strategy->expects($this->never())
+            ->method('getName');
+
+        $configuredDetector = $this->getMockDetector();
+
+        $configuredDetector->expects($this->never())
+            ->method('isAvailable');
+
+        $dynamicDetector = $this->getMockDetector();
+
+        $dynamicDetector->expects($this->once())
+            ->method('isAvailable')
+            ->with($name)
+            ->will($this->returnValue(true));
+
+        $namer = new Namer($strategy, $configuredDetector);
+
+        // Uses the dynamic detector
+        $this->assertSame($name, $namer->getName($name, $dynamicDetector), 'Dynamic detector is used.');
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage No detector is configured for this namer.
+     */
+    public function testNoDetector()
+    {
+        $name = 'Namer';
+
+        $strategy = $this->getMockStrategy();
+
+        $strategy->expects($this->never())
+            ->method('getName');
+
+        $namer = new Namer($strategy);
+        $namer->getName($name); // Will throw an exception with no detector configured.
+    }
+
     private function getMockStrategy()
     {
         return $this->getMock('Emarref\Namer\Strategy\SuffixStrategy', ['getName']);

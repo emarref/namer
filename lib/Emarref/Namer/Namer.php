@@ -31,7 +31,7 @@ class Namer
      */
     public function __construct(
         StrategyInterface $strategy,
-        DetectorInterface $detector,
+        DetectorInterface $detector = null,
         $limit = self::STRATEGY_DEFAULT_LIMIT
     ) {
         $this->strategy = $strategy;
@@ -64,18 +64,25 @@ class Namer
      * generate a new name, then use the detector to determine if that name is available to be used. Continue until
      * either an available name has been found, or the limit has been reached.
      *
-     * @param string $name
-     * @return string
+     * @param string                     $name
+     * @param Detector\DetectorInterface $detector
      * @throws \RuntimeException
+     * @return string
      */
-    public function getName($name)
+    public function getName($name, DetectorInterface $detector = null)
     {
+        if (!$detector && !$this->detector) {
+            throw new \RuntimeException('No detector is configured for this namer.');
+        } elseif (!$detector && $this->detector) {
+            $detector = $this->detector;
+        }
+
         $i = 1;
         $limit = $this->getLimit();
 
         $originalName = $name;
 
-        while (!$this->detector->isAvailable($name)) {
+        while (!$detector->isAvailable($name)) {
             $name = $this->strategy->getName($originalName, $i);
 
             $i++;
