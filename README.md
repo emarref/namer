@@ -29,8 +29,17 @@ then run `php ./composer.phar update emarref/namer`.
 ```php
 $strategy = new Emarref\Namer\Strategy\SuffixStrategy();
 $detector = new Emarref\Namer\Detector\ArrayDetector(['Taken', 'Taken copy']);
-$namer = new Emarref\Namer($strategy, $detector);
+$namer    = new Emarref\Namer($strategy, $detector);
 echo $namer->getName('Taken'); // Will return "Taken copy 2"
+```
+
+The detector is optional, but must be passed as the second argument to the `Namer#getName()` method if it is omitted when instantiating the namer. This is useful when your namer is configured in your DI container, but you need to use a different detector. For example:
+
+```php
+$namer            = $this->get('default_namer');
+$unavailableNames = $repository->getUnavailableNames();
+$detector         = new Emarref\Namer\Detector\ArrayDetector($unavailableNames);
+echo $namer->getName('Taken', $detector);
 ```
 
 ### Strategies
