@@ -4,6 +4,8 @@ This is a simple library for determining whether or not a given name is availabl
 
 For example, when saving a file to a filesystem, use the Namer to determine an available filename to use that will not clash with other files on the filesystem.
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/emarref/namer/badges/quality-score.png?s=7f4132867598fcfe59d6f7671347fdcd44d625a3)](https://scrutinizer-ci.com/g/emarref/namer/)
+
 ## Install
 
 ### Composer
