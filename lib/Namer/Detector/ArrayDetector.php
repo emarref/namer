@@ -12,6 +12,9 @@ class ArrayDetector implements DetectorInterface
      */
     private $pool;
 
+    /**
+     * @param array $pool
+     */
     public function __construct(array $pool)
     {
         $this->pool = $pool;

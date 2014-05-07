@@ -20,6 +20,9 @@ class HashStrategy implements StrategyInterface
      */
     private $hashingStrategy;
 
+    /**
+     * @param string $hashingStrategy
+     */
     public function __construct($hashingStrategy = self::HASHING_STRATEGY_SHA1)
     {
         $this->setHashingStrategy($hashingStrategy);

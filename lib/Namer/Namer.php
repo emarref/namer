@@ -24,6 +24,11 @@ class Namer
      */
     private $limit;
 
+    /**
+     * @param StrategyInterface $strategy
+     * @param DetectorInterface $detector
+     * @param int               $limit
+     */
     public function __construct(
         StrategyInterface $strategy,
         DetectorInterface $detector,

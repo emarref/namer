@@ -25,6 +25,10 @@ class SuffixStrategy implements StrategyInterface
      */
     private $incremental;
 
+    /**
+     * @param string $suffix
+     * @param bool   $incremental
+     */
     public function __construct($suffix = 'copy', $incremental = true)
     {
         $this->setSuffix($suffix);
@@ -54,7 +58,7 @@ class SuffixStrategy implements StrategyInterface
     /**
      * Set whether the naming will occur incrementally.
      *
-     * @param boolean
+     * @param boolean $incremental
      */
     public function setIncremental($incremental)
     {

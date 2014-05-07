@@ -12,6 +12,9 @@ class FilesystemDetector implements DetectorInterface
      */
     private $path;
 
+    /**
+     * @param string $path
+     */
     function __construct($path)
     {
         $this->setPath($path);
