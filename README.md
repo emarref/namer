@@ -4,7 +4,9 @@ This is a simple library for determining whether or not a given name is availabl
 
 For example, when saving a file to a filesystem, use the Namer to determine an available filename to use that will not clash with other files on the filesystem.
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/emarref/namer/badges/quality-score.png?s=7f4132867598fcfe59d6f7671347fdcd44d625a3)](https://scrutinizer-ci.com/g/emarref/namer/) [![Code Coverage](https://scrutinizer-ci.com/g/emarref/namer/badges/coverage.png?s=2ac1119564679c48662b1c18af78e078c354b8ab)](https://scrutinizer-ci.com/g/emarref/namer/)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/emarref/namer/badges/quality-score.png?s=7f4132867598fcfe59d6f7671347fdcd44d625a3)](https://scrutinizer-ci.com/g/emarref/namer/)
+[![Code Coverage](https://scrutinizer-ci.com/g/emarref/namer/badges/coverage.png?s=2ac1119564679c48662b1c18af78e078c354b8ab)](https://scrutinizer-ci.com/g/emarref/namer/)
+[![Build Status](https://travis-ci.org/emarref/namer.svg)](https://travis-ci.org/emarref/namer)
 
 ## Install
 
