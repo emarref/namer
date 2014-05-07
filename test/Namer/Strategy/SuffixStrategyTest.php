@@ -8,7 +8,7 @@ class SuffixStrategyTest extends \PHPUnit_Framework_TestCase
     const STRATEGY_DEFAULT_INCREMENT = true;
 
     /**
-     * @var StrategyInterface
+     * @var SuffixStrategy
      */
     private $strategy;
 
