@@ -26,13 +26,20 @@ class SuffixStrategy implements StrategyInterface
     private $incremental;
 
     /**
+     * @var boolean
+     */
+    private $precedeExtension;
+
+    /**
      * @param string $suffix
      * @param bool   $incremental
+     * @param bool   $precedeExtension
      */
-    public function __construct($suffix = 'copy', $incremental = true)
+    public function __construct($suffix = 'copy', $incremental = true, $precedeExtension = false)
     {
         $this->setSuffix($suffix);
         $this->setIncremental($incremental);
+        $this->setPrecedeExtension($precedeExtension);
     }
 
     /**
@@ -76,6 +83,26 @@ class SuffixStrategy implements StrategyInterface
     }
 
     /**
+     * Set whether to insert the suffix **before** the file extension
+     *
+     * @param boolean $precedeExtension
+     */
+    public function setPrecedeExtension($precedeExtension)
+    {
+        $this->precedeExtension = $precedeExtension;
+    }
+
+    /**
+     * Get whether to insert the suffix **before** the file extension
+     *
+     * @return boolean
+     */
+    public function getPrecedeExtension()
+    {
+        return $this->precedeExtension;
+    }
+
+    /**
      * @inheritdoc
      */
     public function getName($name, $index)
@@ -95,6 +122,14 @@ class SuffixStrategy implements StrategyInterface
         } else {
             // Use suffix, suffix suffix, suffix suffix suffix etc
             $suffix = implode(' ', array_pad([], $index, $suffix));
+        }
+
+        // We are preceding the extension with our suffix, **and** the
+        // file does already have an extension
+        if ($this->getPrecedeExtension() && ($extension = pathinfo($name, PATHINFO_EXTENSION))) {
+            $name = preg_replace('/(\.'.preg_quote($extension).')$/', '', $name);
+
+            return sprintf('%s %s.%s', $name, $suffix, $extension);
         }
 
         return sprintf('%s %s', $name, $suffix);
