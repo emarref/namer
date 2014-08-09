@@ -29,7 +29,7 @@ then run `php ./composer.phar update emarref/namer`.
 ```php
 $strategy = new Emarref\Namer\Strategy\SuffixStrategy();
 $detector = new Emarref\Namer\Detector\ArrayDetector(['Taken', 'Taken copy']);
-$namer    = new Emarref\Namer($strategy, $detector);
+$namer    = new Emarref\Namer\Namer($strategy, $detector);
 echo $namer->getName('Taken'); // Will return "Taken copy 2"
 ```
 
