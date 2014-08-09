@@ -17,7 +17,7 @@ Add the following configuration to your composer.json file.
 ```json
 [...]
     "require": {
-       "emarref/phpunit": "dev-master"
+       "emarref/namer": "dev-master"
    }
 [...]
 ```
