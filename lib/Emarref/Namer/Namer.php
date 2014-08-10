@@ -99,7 +99,7 @@ class Namer
     {
         if (null === $detector && null === $this->detector) {
             throw new \RuntimeException('No detector is configured for this namer.');
-        } elseif (null !== $this->detector) {
+        } elseif (null === $detector) {
             $detector = $this->detector;
         }
 
