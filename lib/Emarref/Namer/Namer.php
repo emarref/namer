@@ -64,7 +64,7 @@ class Namer
      *
      * @param string                     $name
      * @param Detector\DetectorInterface $detector
-     * @return string|boolean
+     * @return false|string
      */
     private function findNewName($name, DetectorInterface $detector)
     {
