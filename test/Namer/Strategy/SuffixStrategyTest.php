@@ -4,8 +4,9 @@ namespace Emarref\Namer\Strategy;
 
 class SuffixStrategyTest extends \PHPUnit_Framework_TestCase
 {
-    const STRATEGY_DEFAULT_SUFFIX    = 'copy';
-    const STRATEGY_DEFAULT_INCREMENT = true;
+    const STRATEGY_DEFAULT_SUFFIX             = 'copy';
+    const STRATEGY_DEFAULT_INCREMENT          = true;
+    const STRATEGY_DEFAULT_PRECEDE_EXTENSION  = false;
 
     /**
      * @var SuffixStrategy
@@ -16,7 +17,8 @@ class SuffixStrategyTest extends \PHPUnit_Framework_TestCase
     {
         $this->strategy = new SuffixStrategy(
             self::STRATEGY_DEFAULT_SUFFIX,
-            self::STRATEGY_DEFAULT_INCREMENT
+            self::STRATEGY_DEFAULT_INCREMENT,
+            self::STRATEGY_DEFAULT_PRECEDE_EXTENSION
         );
     }
 
@@ -60,6 +62,29 @@ class SuffixStrategyTest extends \PHPUnit_Framework_TestCase
             $this->strategy->getName('Strategy', 2),
             'Strategy copy copy',
             'Non-incremental suffix appended on third iteration'
+        );
+    }
+
+    public function testGetNameSuffixPrecedeingExtension()
+    {
+        $this->strategy->setPrecedeExtension(true);
+
+        $this->assertSame(
+            $this->strategy->getName('Strategy.txt', 1),
+            'Strategy copy.txt',
+            'Suffix not inserted before file extension'
+        );
+
+        $this->assertSame(
+            $this->strategy->getName('Strategy.txt', 2),
+            'Strategy copy 2.txt',
+            'Incremental suffix not inserted before file extension'
+        );
+
+        $this->assertSame(
+            $this->strategy->getName('Strategy', 1),
+            'Strategy copy',
+            'Suffix breaks filename if there is no extension but SuffixStrategy::precedeExtension is set to true'
         );
     }
 

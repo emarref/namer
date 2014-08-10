@@ -57,6 +57,8 @@ A simple strategy that returns the name untouched on iteration 0, returns the na
 
 e.g. Name, Name copy, Name copy 2, Name copy 3 etc
 
+The Suffix can also be inserted before the file extension using `SuffixStrategy::setPrecedeExtension(true)`.
+
 ### Detectors
 
 The detector is the class that determines whether or not a name is available to use. A detector must implement the interface `Emarref\Namer\Detector\DetectorInterface`. There are currently two simple detectors available for use. `ArrayDetector` and `FilesystemDetector`.
