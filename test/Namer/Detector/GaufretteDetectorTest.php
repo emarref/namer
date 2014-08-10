@@ -57,6 +57,9 @@ class GaufretteDetectorTest extends PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        unset($this->detector);
+        unset(
+            $this->adapter,
+            $this->detector
+        );
     }
 }
