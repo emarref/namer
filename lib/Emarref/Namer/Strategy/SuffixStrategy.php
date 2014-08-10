@@ -124,14 +124,14 @@ class SuffixStrategy implements StrategyInterface
             $suffix = implode(' ', array_pad([], $index, $suffix));
         }
 
+        $pathinfo = pathinfo($name);
+
         // We are preceding the extension with our suffix, **and** the
         // file does already have an extension
-        if (!$this->getIgnoreExtension() && ($extension = pathinfo($name, PATHINFO_EXTENSION))) {
-            $name = preg_replace('/(\.'.preg_quote($extension).')$/', '', $name);
-
-            return sprintf('%s %s.%s', $name, $suffix, $extension);
+        if (!$this->getIgnoreExtension() && !empty($pathinfo['extension'])) {
+            return sprintf('%s %s.%s', $pathinfo['filename'], $suffix, $pathinfo['extension']);
+        } else {
+            return sprintf('%s %s', $name, $suffix);
         }
-
-        return sprintf('%s %s', $name, $suffix);
     }
 }
