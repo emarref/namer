@@ -97,10 +97,10 @@ class Namer
      */
     public function getName($originalName, DetectorInterface $detector = null)
     {
-        if (null === $detector && null === $this->detector) {
+        $detector = $detector ?: $this->detector;
+
+        if (null === $detector) {
             throw new \RuntimeException('No detector is configured for this namer.');
-        } elseif (null === $detector) {
-            $detector = $this->detector;
         }
 
         $newName = $this->findNewName($originalName, $detector);
