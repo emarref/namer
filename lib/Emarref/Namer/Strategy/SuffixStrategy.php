@@ -103,6 +103,46 @@ class SuffixStrategy implements StrategyInterface
     }
 
     /**
+     * Given an index, return the suffix used to avoid collision.
+     *
+     * @param int $index
+     * @return string
+     */
+    protected function buildSuffix($index)
+    {
+        $suffix = $this->getSuffix();
+
+        if ($this->getIncremental() && $index > 1) {
+            // Use suffix, suffix 2, suffix 3 etc
+            $suffix = sprintf('%s %s', $suffix, $index);
+        } else {
+            // Use suffix, suffix suffix, suffix suffix suffix etc
+            $suffix = implode(' ', array_pad([], $index, $suffix));
+        }
+
+        return $suffix;
+    }
+
+    /**
+     * Return a printf mask with a placeholder for the suffix.
+     *
+     * @param string $name
+     * @return string
+     */
+    protected function getNameMask($name)
+    {
+        $pathinfo = pathinfo($name);
+
+        // We are preceding the extension with our suffix, **and** the
+        // file does already have an extension
+        if (!$this->getIgnoreExtension() && !empty($pathinfo['extension'])) {
+            return sprintf('%s %%s.%s', $pathinfo['filename'], $pathinfo['extension']);
+        } else {
+            return sprintf('%s %%s', $name);
+        }
+    }
+
+    /**
      * @inheritdoc
      */
     public function getName($name, $index)
@@ -112,26 +152,9 @@ class SuffixStrategy implements StrategyInterface
             return $name;
         }
 
-        $suffix = $this->getSuffix();
+        $suffix   = $this->buildSuffix($index);
+        $nameMask = $this->getNameMask($name);
 
-        if ($this->getIncremental()) {
-            // Use suffix, suffix 2, suffix 3 etc
-            if ($index > 1) {
-                $suffix = sprintf('%s %s', $suffix, $index);
-            }
-        } else {
-            // Use suffix, suffix suffix, suffix suffix suffix etc
-            $suffix = implode(' ', array_pad([], $index, $suffix));
-        }
-
-        $pathinfo = pathinfo($name);
-
-        // We are preceding the extension with our suffix, **and** the
-        // file does already have an extension
-        if (!$this->getIgnoreExtension() && !empty($pathinfo['extension'])) {
-            return sprintf('%s %s.%s', $pathinfo['filename'], $suffix, $pathinfo['extension']);
-        } else {
-            return sprintf('%s %s', $name, $suffix);
-        }
+        return sprintf($nameMask, $suffix);
     }
 }
