@@ -68,3 +68,7 @@ Detects the existence of a value in an array.
 #### FilesystemDetector
 
 Detects the existence of a file on a filesystem.
+
+#### GaufretteDetector
+
+Detects the existence of a file using a [Gaufrette](https://github.com/KnpLabs/Gaufrette) Adapter, e.g. `Gaufrette\Adapter\Local`
