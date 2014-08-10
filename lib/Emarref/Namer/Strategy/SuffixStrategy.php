@@ -28,18 +28,18 @@ class SuffixStrategy implements StrategyInterface
     /**
      * @var boolean
      */
-    private $precedeExtension;
+    private $ignoreExtension;
 
     /**
      * @param string $suffix
      * @param bool   $incremental
-     * @param bool   $precedeExtension
+     * @param bool   $ignoreExtension
      */
-    public function __construct($suffix = 'copy', $incremental = true, $precedeExtension = false)
+    public function __construct($suffix = 'copy', $incremental = true, $ignoreExtension = true)
     {
         $this->setSuffix($suffix);
         $this->setIncremental($incremental);
-        $this->setPrecedeExtension($precedeExtension);
+        $this->setIgnoreExtension($ignoreExtension);
     }
 
     /**
@@ -85,11 +85,11 @@ class SuffixStrategy implements StrategyInterface
     /**
      * Set whether to insert the suffix **before** the file extension
      *
-     * @param boolean $precedeExtension
+     * @param boolean $ignoreExtension
      */
-    public function setPrecedeExtension($precedeExtension)
+    public function setIgnoreExtension($ignoreExtension)
     {
-        $this->precedeExtension = $precedeExtension;
+        $this->ignoreExtension = $ignoreExtension;
     }
 
     /**
@@ -97,9 +97,9 @@ class SuffixStrategy implements StrategyInterface
      *
      * @return boolean
      */
-    public function getPrecedeExtension()
+    public function getIgnoreExtension()
     {
-        return $this->precedeExtension;
+        return $this->ignoreExtension;
     }
 
     /**
@@ -126,7 +126,7 @@ class SuffixStrategy implements StrategyInterface
 
         // We are preceding the extension with our suffix, **and** the
         // file does already have an extension
-        if ($this->getPrecedeExtension() && ($extension = pathinfo($name, PATHINFO_EXTENSION))) {
+        if (!$this->getIgnoreExtension() && ($extension = pathinfo($name, PATHINFO_EXTENSION))) {
             $name = preg_replace('/(\.'.preg_quote($extension).')$/', '', $name);
 
             return sprintf('%s %s.%s', $name, $suffix, $extension);
