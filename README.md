@@ -42,6 +42,47 @@ $detector         = new Emarref\Namer\Detector\ArrayDetector($unavailableNames);
 echo $namer->getName('Taken', $detector);
 ```
 
+### Using the Symfony2 Dependency Injection Container
+
+```yaml
+parameters:
+    namer.default.limit:                    100
+
+    namer.strategy.suffix.suffix:           copy
+    namer.strategy.suffix.incremental:      true
+    namer.strategy.suffix.ignore_extension: true
+
+    namer.detector.filesystem.path:         /var/www/website/web/uploads
+
+services:
+    namer.strategy.suffix:
+        class:  Emarref\Namer\Strategy\SuffixStrategy
+        public: false
+        arguments:
+            - %namer.strategy.suffix.suffix%
+            - %namer.strategy.suffix.incremental%
+            - %namer.strategy.suffix.ignore_extension%
+
+    namer.detector.filesystem:
+        class:  Emarref\Namer\Detector\FilesystemDetector
+        public: false
+        arguments:
+            - %namer.detector.filesystem.path%
+
+    namer.default:
+        class:  Emarref\Namer\Namer
+        public: false
+        arguments:
+            - @namer.strategy.suffix
+            - @namer.detector.filesystem
+            - %namer.default.limit%
+
+    namer:
+        alias: namer.default
+```
+
+You can then use the namer by accessing the `namer` service in the container.
+
 ### Strategies
 
 The strategy is the class that generates a new name, based on an iteration index. It must implement the interface `Emarref\Namer\Strategy\StrategyInterface`. There are currently two strategies available for use. `HashStrategy` and `SuffixStrategy`.
